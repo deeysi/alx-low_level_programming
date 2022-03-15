@@ -8,7 +8,7 @@ int main(void)
 {
 	char *putchar;
 
-	for (putchar = "putchar\n"; *putchar != '\0'; ++putchar)
+	for (_putchar = "putchar\n"; *putchar != '\0'; ++putchar)
 		_putchar(*putchar);
 	return (0);
 }
