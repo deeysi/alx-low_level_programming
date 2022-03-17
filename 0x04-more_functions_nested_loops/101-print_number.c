@@ -1,42 +1,37 @@
 #include "main.h"
-
 /**
- * print_number - print any integer using putchar
- * @n: integer to be printed
+ * print_number - prints numbers
+ * @n: number to be printed
+ * Return:void
  */
 
 void print_number(int n)
 {
-	int count, x, y, k;
 
-	x = 0;
-	y = 1000000000;
+	int d = 1, i = 0, ii = 0;
 
-	if (n == 0)
-		_putchar('0');
-	else if (n > 0)
-		n *= -1;
-	else
-	       	_putchar('-');
-	for (count = 0; count < 10; count++)
+	if (n < 0)
 	{
-		if (n / y == 0 && x == 0)
-		{
-			y /= 10;
-			
-			continue;
-		}
-		else if (x == 0)
-		{
-			_putchar(-(n / y) + '0');
-			x += 1;
-		}
-		else
-		{
-			k = (-(n / y) % 10);
-			if (k < 0)
-				k *= -1;
-			_putchar(k + '0');
-		}
-		y /= 10;
+		_putchar('-');
+		n = -n;
 	}
+
+	while (n / d != 0)
+	{
+		d *= 10;
+		i++;
+	}
+	d = d / 10;
+
+	while (ii < i)
+	{
+		_putchar('0' + n / d);
+		n = n - (n / d) * d;
+		d = d / 10;
+		ii++;
+	}
+
+	if (i == 0)
+		_putchar('0' + n);
+
+}
