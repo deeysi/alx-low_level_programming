@@ -1,32 +1,12 @@
 #include "main.h"
 
 /**
- * print_number - print any integer using putchar
- * @n: integer to be printed
+ * set_string - Entry point
+ * @s: input
+ * @to: input
+ * Return: Always 0 (Success)
  */
-
-void print_number(int n)
+void set_string(char **s, char *to)
 {
-	int count, y, k;
-
-	y = 1000000000;
-
-	if (n == 0)
-		_putchar('0');
-	else if (n > 0)
-		n *= -1;
-	else
-		_putchar('-');
-	for (count = 0; count < 10; count++, y /= 10)
-	{
-		if (n / y == 0)
-			continue;
-		else
-		{
-			k = (-(n / y) % 10);
-			if (k < 0)
-				k *= -1;
-			_putchar(k + '0');
-		}
-	}
+	*s = to;
 }
