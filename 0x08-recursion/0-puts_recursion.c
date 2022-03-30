@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "main.h"
 
 /**
@@ -13,4 +14,23 @@ void _puts_recursion(char *s)
 	}
 	else
 		_putchar('\n');
+=======
+#include <stdio.h>
+#include "main.h"
+
+/**
+ * _puts_recursion -function that prints a string,
+ * followed by a new line
+ * @s: string to be printed
+ */
+
+void _puts_recursion(char *s)
+{
+		if (*s)
+		{
+			_putchar(*s);
+			_puts_recursion(s + 1)																																										}
+		else
+			_putchar('\n');
+>>>>>>> bff26dc394b6c99b81933b14d42965db3ccb0b8f
 }
