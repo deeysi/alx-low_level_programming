@@ -1,18 +1,12 @@
 #include "main.h"
-
 /**
- * _abs - Prints out the absolute value.
- *
- * @n: Placeholder for the integer input.
- *
- * Return: The absolute value.
+ *_abs - entry to the program
+ * @n: argument to be checked
+ * Return: the absolte value of @n
  */
 
-int _abs(int n)
 
+int _abs(int n)
 {
-if (n >= 0)
-	return (n);
-else
-	return (-n);
+	return (n < 0 ? -1 * n : n);
 }
