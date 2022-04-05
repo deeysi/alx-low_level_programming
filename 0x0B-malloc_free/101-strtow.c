@@ -1,50 +1,102 @@
 #include "main.h"
 #include <stdlib.h>
 
+int len(char *str);
+int word(char *str);
+
 /**
- * strtow - A function that splits a string into words
- * @str: An input pointer of the string to split
- * Return: Apointer to concatened strings or NULL if it str is NULL
+ * len - Locates the index marking the end of the
+ *       first word contained within a string.
+ * @str: The string to be searched.
+ *
+ * Return: The index marking.
+ */
+int len(char *str)
+{
+	int i = 0, j = 0;
+
+	while (*(str + i) && *(str + i) != ' ')
+	{
+		j++;
+		i++;
+	}
+
+	return (j);
+}
+
+/**
+ * words - Counts the number of words within a string.
+ * @str: The string to be searched.
+ *
+ * Return: Number of words contained in @str.
+ */
+int words(char *str)
+{
+	int i = 0, j = 0, l = 0;
+
+	for (i = 0; *(str + i); i++)
+		l++;
+
+	for (i = 0; i < l; i++)
+	{
+		if (*(str + i) != ' ')
+		{
+			j++;
+			i += len(str + i);
+		}
+	}
+
+	return (j);
+}
+
+/**
+ * strtow - Splits a string into words.
+ * @str: The string to be split.
+ *
+ * Return: Pointer to an array of strings.
+ *	   NULL is str == NULL || str == "" and if in failure.
  */
 char **strtow(char *str)
 {
-	char **array;
-	int i = 0, j, m, k = 0, len = 0, count = 0;
+	char **s;
+	int i = 0, j, k, l, m;
 
-	if (str == NULL || *str == '\0')
+	if (str == NULL || str[0] == '\0')
 		return (NULL);
-	for (; str[i]; i++)
+
+	j = words(str);
+	if (j == 0)
+		return (NULL);
+
+	s = malloc(sizeof(char *) * (j + 1));
+	if (s == NULL)
+		return (NULL);
+
+	for (k = 0; k < j; k++)
 	{
-		if ((str[i] != ' ' || *str != '\t') &&
-				((str[i + 1] == ' ' || str[i + 1] == '\t') || str[i + 1] == '\n'))
-			count++;
-	}
-	if (count == 0)
-		return (NULL);
-	array = malloc(sizeof(char *) * (count + 1));
-	if (array == NULL)
-		return (NULL);
-	for (i = 0; str[i] != '\0' && k < count; i++)
-	{
-		if (str[i] != ' ' || str[i] != '\t')
+		while (str[i] == ' ')
+			i++;
+
+		l = len(str + i);
+
+		s[k] = malloc(sizeof(char) * (l + 1));
+
+		if (s[k] == NULL)
 		{
-			len = 0;
-			j = i;
-			while ((str[j] != ' ' || str[j] != '\t') && str[j] != '\0')
-				j++, len++;
-			array[k] = malloc((len + 1) * sizeof(char));
-			if (array[k] == NULL)
-			{
-				for (k = k - 1; k >= 0; k++)
-					free(array[k]);
-				free(array);
-				return (NULL);
-			}
-			for (m = 0; m < len; m++, i++)
-				array[k][m] = str[i];
-			array[k++][m] = '\0';
+			for (; k >= 0; k--)
+				free(s[k]);
+
+			free(s);
+			return (NULL);
 		}
+
+		for (m = 0; m < l; m++)
+			s[k][m] = str[i++];
+
+		s[k][m] = '\0';
 	}
-	array[k] = NULL;
-	return (array);
+	s[k] = NULL;
+
+	return (s);
 }
+
